@@ -9,7 +9,7 @@
 | **Candidate registration number** | 1000389 |
 | **School name** | Viraj International School |
 | **GitHub repository** | https://github.com/tanmaythakur09/IADAI201_1000389-TanmayThakur |
-| **Live app (Streamlit Cloud)** | <<STREAMLIT APP URL>> |
+| **Live app (Streamlit Cloud)** | https://parkvision-smart-parking.streamlit.app |
 
 > **Quick start for reviewers:** open the live app and click **Continue as Guest** (no sign-up needed). A demo account also exists: `demo@parkvision.ai` / `Demo@1234`.
 
