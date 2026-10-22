@@ -8,7 +8,7 @@
 | **Student name** | Tanmay Kunal Thakur |
 | **Candidate registration number** | 1000389 |
 | **School name** | Viraj International School |
-| **GitHub repository** | <<GITHUB REPO URL>> |
+| **GitHub repository** | https://github.com/tanmaythakur09/IADAI201_1000389-TanmayThakur |
 | **Live app (Streamlit Cloud)** | <<STREAMLIT APP URL>> |
 
 > **Quick start for reviewers:** open the live app and click **Continue as Guest** (no sign-up needed). A demo account also exists: `demo@parkvision.ai` / `Demo@1234`.
@@ -47,7 +47,7 @@ UrbanFlow AI Pvt. Ltd. wants camera-based parking analytics that replace per-slo
 5. Use the dataset's **own** train / valid / test folders for the splits, so no photo contributes crops to more than one split.
 6. **Augmentation** (training only): random horizontal flip, small rotation and brightness changes through Keras `Random*` layers, to cope with lighting and weather variation.
 
-The prepared subset is committed in `data/` (`data/{train,val,test}/{occupied,empty}/`).
+The prepared subset is committed in `data/content/data/` (`{train,val,test}/{occupied,empty}/`).
 
 **Caveat:** PKLot frames come from a few fixed cameras, so many frames look alike. Held-out accuracy can therefore be optimistic compared with a completely new camera.
 
@@ -55,7 +55,7 @@ The prepared subset is committed in `data/` (`data/{train,val,test}/{occupied,em
 
 - **Architecture:** MobileNetV2 (ImageNet weights, `include_top=False`, frozen) → GlobalAveragePooling2D → Dropout 0.3 → Dense 128 (ReLU) → Dropout 0.2 → Dense 1 (sigmoid).
 - **Preprocessing:** MobileNetV2's `preprocess_input` is the first layer *inside* the saved model, so the app feeds raw 0–255 RGB pixels.
-- **Training:** Adam, binary cross-entropy, batch size 32, up to 25 epochs, early stopping on validation loss (patience 5), best checkpoint kept. Trained in Google Colab (T4 GPU).
+- **Training:** Adam, binary cross-entropy, batch size 32, up to 25 epochs, early stopping on validation loss (patience 5), best weights restored. Trained in Google Colab (T4 GPU).
 - **Label convention:** `empty = 0`, `occupied = 1`.
 - **Saved model:** `model/parking_classifier.keras`.
 
@@ -137,7 +137,7 @@ Five complete lot photos from the PKLot **test split** were run through the live
 
 | # | Conditions | Slots | True occ / empty | App occ / empty | Congestion (true → app) | Net error |
 |---|---|---|---|---|---|---|
-| 1 | Daylight, 40-slot lot | 40 | 28 / 12 | 28 / 12 | Moderate → Moderate | 0 |
+| 1 | Overcast, 40-slot lot | 40 | 28 / 12 | 28 / 12 | Moderate → Moderate | 0 |
 | 2 | Overcast, wet pavement, dark cars | 40 | 7 / 33 | 5 / 35 | Low → Low | 2 |
 | 3 | Overcast / rainy, crowded diagonal lot | 28 | 25 / 3 | 24 / 4 | High → High | 1 |
 | 4 | Overcast, dense 100-slot lot | 100 | 91 / 9 | 89 / 11 | High → High | 2 |
