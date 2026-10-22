@@ -1,0 +1,14 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# private: never publish
+parkvision.db
+*.db
+.streamlit/secrets.toml
+
+# huge raw dataset (the small subset in data/ IS committed)
+pklot_raw/

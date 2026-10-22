@@ -1,0 +1,94 @@
+{
+  "model_architecture": {
+    "backbone": "MobileNetV2 (ImageNet-pretrained base)",
+    "input_shape": [224, 224, 3],
+    "optimizer": "Adam (learning_rate=1e-4)",
+    "loss": "Binary Cross-Entropy",
+    "regularization": "Dropout(0.3) + Dropout(0.2)",
+    "dense_units": 128,
+    "activation": "Sigmoid output",
+    "early_stopping": "Patience 5, restore_best_weights=True"
+  },
+  "dataset": {
+    "source": "PKLot (PUC, UFPR04, UFPR05 subsets)",
+    "total_samples": 800,
+    "samples_per_class": 400,
+    "splits": {
+      "train": 560,
+      "validation": 120,
+      "test": 120
+    },
+    "split_percentages": {
+      "train": 70,
+      "validation": 15,
+      "test": 15
+    }
+  },
+  "test_metrics": {
+    "accuracy": 0.9917,
+    "correct_test_predictions": 119,
+    "total_test_samples": 120,
+    "classes": ["Empty", "Occupied"],
+    "per_class": {
+      "Empty": {
+        "precision": 1.00,
+        "recall": 0.98,
+        "f1_score": 0.99,
+        "support": 60
+      },
+      "Occupied": {
+        "precision": 0.98,
+        "recall": 1.00,
+        "f1_score": 0.99,
+        "support": 60
+      }
+    },
+    "macro_avg": {
+      "precision": 0.99,
+      "recall": 0.99,
+      "f1_score": 0.99,
+      "support": 120
+    },
+    "weighted_avg": {
+      "precision": 0.99,
+      "recall": 0.99,
+      "f1_score": 0.99,
+      "support": 120
+    },
+    "confusion_matrix": {
+      "labels": ["Empty", "Occupied"],
+      "matrix": [
+        [59, 1],
+        [0, 60]
+      ]
+    }
+  },
+  "challenges_and_limitations": [
+    {
+      "title": "Severe Shadows & Lighting Transitions",
+      "description": "High-contrast tree or building shadows cast across empty asphalt can exhibit high edge gradients, occasionally testing boundary discernment under extreme sun angles."
+    },
+    {
+      "title": "Partial Vehicle Occlusion",
+      "description": "Taller SUVs or commercial vans in foreground slots can partially occlude background slots from oblique camera perspectives."
+    },
+    {
+      "title": "Weather & Lens Artifacts",
+      "description": "Heavy rainfall, surface puddling causing specular reflections, and lens water droplets degrade image contrast relative to sunny baseline imagery."
+    },
+    {
+      "title": "Camera Angle Transferability",
+      "description": "Slot coordinate mappings are tied to a fixed perspective. Changing camera mount angle or focal length requires re-annotation of slot coordinates via the picker utility."
+    }
+  ],
+  "references": [
+    {
+      "citation": "Almeida, P., Oliveira, L. S., Silva, Jr, E., Silva, A., & Britto, Jr, A. (2015). PKLot – A robust dataset for parking lot classification. Expert Systems with Applications, 42(11), 4937-4949.",
+      "link": "https://doi.org/10.1016/j.eswa.2015.02.009"
+    },
+    {
+      "citation": "Sandler, M., Howard, A., Zhu, M., Zhmoginov, A., & Chen, L. C. (2018). MobileNetV2: Inverted Residuals and Linear Bottlenecks. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 4510-4520.",
+      "link": "https://arxiv.org/abs/1801.04381"
+    }
+  ]
+}
