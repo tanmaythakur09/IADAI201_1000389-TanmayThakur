@@ -56,8 +56,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Initialize Database & Demo Account
-init_db()
+# Initialize Database & Demo Account (cached once per server process)
+@st.cache_resource
+def setup_database():
+    return init_db()
+
+db_ready = setup_database()
+if not db_ready:
+    st.warning("Accounts are temporarily unavailable. Guest mode still works.")
 
 # Initialize Session State
 init_session_state()
